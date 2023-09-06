@@ -1,18 +1,20 @@
 interface Post {
-  id: number,
-  email: string
+  postId: number;
+  id:     number;
+  name:   string;
+  email:  string;
+  body:   string;
 }
 
 const COMMENTS_URL: string = 'https://jsonplaceholder.typicode.com/comments';
 
-const getData = (url:string): Promise<Response> => {
-  return fetch(url)
+const getData = (url:string): Promise<Post[]> => {
+  return fetch(url).then((data) => data.json())
 }
 
 getData(COMMENTS_URL)
-  .then((data) => data.json())
   .then((response:Post[]) => {
-    response.forEach(item => {
+    response.forEach((item:Post):void  => {
       console.log('Id:', item.id, 'Email:', item.email)
     })
   });
